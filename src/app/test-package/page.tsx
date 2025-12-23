@@ -1,34 +1,15 @@
 "use client";
 
 /**
- * Test Page for smythos-chatbot-test npm package
+ * Test Page for smythos-chatbot-test npm package (v2.5.1+)
  *
- * This page demonstrates using the SmythBot React component
- * instead of the embed script approach.
+ * This page demonstrates using the SmythBot React component.
+ * With v2.5.1, direct import works - no dynamic import needed!
+ *
+ * CSS is automatically injected when the component mounts.
  */
 
-import dynamic from "next/dynamic";
-import type { ISmythBotProps } from "smythos-chatbot-test";
-
-/**
- * Dynamic import SmythBot with SSR disabled
- *
- * This is required because SmythBot injects CSS into document.head
- * which doesn't exist during server-side rendering.
- *
- * Note: We import the type separately to get proper TypeScript suggestions.
- */
-const SmythBot = dynamic<ISmythBotProps>(
-  () => import("smythos-chatbot-test").then((mod) => mod.SmythBot),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="flex h-full items-center justify-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-cyan-500 border-t-transparent" />
-      </div>
-    ),
-  }
-);
+import { SmythBot } from "smythos-chatbot-test";
 
 /** Agent configuration */
 const AGENT_ID = "cmil944nr70e8fzilkr0w632v";
@@ -38,19 +19,20 @@ const AGENT_DOMAIN = `${AGENT_ID}.agent.pstage.smyth.ai`;
  * Test Package Page
  *
  * Demonstrates the new React component approach for embedding SmythBot.
- * No script loading needed - just import and use!
+ * No script loading or dynamic import needed - just import and use!
  */
 const TestPackagePage = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-zinc-950">
+      {/* SmythBot Component - Simple usage without ref */}
       <SmythBot
         agentId={AGENT_ID}
         domain={AGENT_DOMAIN}
-        mode="fullscreen"
+        mode="widget"
         enableDebugLogs
         enableMetaMessages
         allowAttachments
-        onReady={() => console.log("SmythBot is ready!")}
+        onReady={() => console.log("✅ SmythBot is ready!")}
       />
     </div>
   );
