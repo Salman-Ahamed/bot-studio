@@ -96,8 +96,8 @@ const TestPage = () => {
               </div>
             </div>
 
-            {/* Chatbot Container */}
-            <div className="relative flex-1 bg-zinc-950">
+            {/* Chatbot Container - overflow hidden to contain widget */}
+            <div className="relative flex-1 overflow-hidden bg-zinc-950">
               {/* Loading Spinner */}
               {isLoading && (
                 <div className="absolute inset-0 z-10 flex items-center justify-center bg-zinc-950">
@@ -128,7 +128,11 @@ const TestPage = () => {
               )}
 
               {/* Chatbot Container - ChatBot.init() will render here */}
-              <div id="smyth-chatbot" className="h-full w-full" />
+              <div
+                id="smyth-chatbot"
+                className="absolute inset-0 h-full w-full"
+                style={{ maxHeight: "100%", overflow: "hidden" }}
+              />
             </div>
           </div>
         </div>

@@ -19,17 +19,36 @@ body {
 }
 
 /* Chatbot container styles */
-#smythos-chatbot-container {
+#smythos-chatbot-container,
+#smyth-chatbot {
   width: 100%;
   height: 100%;
-  min-height: 500px;
 }
 
-#smythos-chatbot-container>div {
+/* Force chatbot widget to fit within container */
+#smythos-chatbot-container > div,
+#smyth-chatbot > div {
   width: 100% !important;
   height: 100% !important;
   max-width: 100% !important;
-  position: relative !important;
+  max-height: 100% !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+}
+
+/* Ensure chat dialog fits within container */
+#smyth-chatbot [role="dialog"] {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  max-height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 /* Custom scrollbar */

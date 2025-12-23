@@ -55,7 +55,7 @@ export function ChatbotCard({ agentId, index }: ChatbotCardProps) {
       </div>
 
       {/* Chatbot Container */}
-      <div className="relative flex-1">
+      <div className="relative flex-1 overflow-hidden">
         {/* Loading Spinner */}
         {isLoading && (
           <div className="absolute inset-0 z-10 flex items-center justify-center bg-zinc-950">
