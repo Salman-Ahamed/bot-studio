@@ -31,6 +31,12 @@ const Home = () => {
         enableDebugLogs: true,
         enableMetaMessages: true,
         containerId: "smyth-chatbot",
+        colors: {
+          chatWindowColors: {
+            backgroundColor: "#000",
+            footerBackgroundColor: "#000",
+          },
+        },
       });
       setIsLoading(false);
     }

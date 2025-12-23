@@ -26,8 +26,8 @@ body {
 }
 
 /* Force chatbot widget to fit within container */
-#smythos-chatbot-container > div,
-#smyth-chatbot > div {
+#smythos-chatbot-container>div,
+#smyth-chatbot>div {
   width: 100% !important;
   height: 100% !important;
   max-width: 100% !important;
@@ -67,4 +67,8 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #52525b;
+}
+
+.chat-footer {
+  color: #fff;
 }
