@@ -8,14 +8,17 @@
  */
 
 import dynamic from "next/dynamic";
+import type { ISmythBotProps } from "smythos-chatbot-test";
 
 /**
  * Dynamic import SmythBot with SSR disabled
  *
  * This is required because SmythBot injects CSS into document.head
  * which doesn't exist during server-side rendering.
+ *
+ * Note: We import the type separately to get proper TypeScript suggestions.
  */
-const SmythBot = dynamic(
+const SmythBot = dynamic<ISmythBotProps>(
   () => import("smythos-chatbot-test").then((mod) => mod.SmythBot),
   {
     ssr: false,
@@ -43,17 +46,10 @@ const TestPackagePage = () => {
       <SmythBot
         agentId={AGENT_ID}
         domain={AGENT_DOMAIN}
-        mode="inline"
+        mode="widget"
         enableDebugLogs
         enableMetaMessages
         allowAttachments
-        // colors={{
-        //   chatWindowColors: {
-        //     backgroundColor: "#09090b",
-        //     headerBackgroundColor: "#18181b",
-        //     footerBackgroundColor: "#18181b",
-        //   },
-        // }}
         onReady={() => console.log("SmythBot is ready!")}
       />
     </div>
