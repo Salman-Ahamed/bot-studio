@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import Script from "next/script";
+import { useState } from "react";
 
 /**
  * Agent configuration
@@ -11,47 +12,29 @@ const AGENT_DOMAIN = `${AGENT_ID}.agent.pstage.smyth.ai`;
 
 /**
  * Test Page - Script-based Chatbot Integration
- * Uses ChatBot.init() method for embedding
+ * Uses Next.js Script component for optimized loading
  */
 const TestPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   /**
-   * Load chatbot script dynamically and initialize
+   * Initialize chatbot after script loads
    */
-  useEffect(() => {
-    // Create script element
-    const script = document.createElement("script");
-    script.src = `https://${AGENT_DOMAIN}/static/embodiment/chatBot/chatbot-v2.js`;
-    script.async = true;
-
-    // Initialize chatbot when script loads
-    script.onload = () => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const ChatBot = (window as any).ChatBot;
-      if (ChatBot) {
-        ChatBot.init({
-          domain: AGENT_DOMAIN,
-          isChatOnly: true,
-          allowAttachments: true,
-          enableDebugLogs: true,
-          enableMetaMessages: true,
-          containerId: "smyth-chatbot",
-        });
-        setIsLoading(false);
-      }
-    };
-
-    // Append script to document body
-    document.body.appendChild(script);
-
-    // Cleanup on component unmount
-    return () => {
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
-    };
-  }, []);
+  const initChatbot = () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const ChatBot = (window as any).ChatBot;
+    if (ChatBot) {
+      ChatBot.init({
+        domain: AGENT_DOMAIN,
+        isChatOnly: true,
+        allowAttachments: true,
+        enableDebugLogs: true,
+        enableMetaMessages: true,
+        containerId: "smyth-chatbot",
+      });
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="flex min-h-screen flex-col bg-zinc-950 text-white">
@@ -63,7 +46,7 @@ const TestPage = () => {
             Bot Studio - Test Page
           </h1>
           <span className="rounded-full border border-amber-500 bg-amber-500/20 px-2 py-0.5 text-xs text-amber-400">
-            useEffect Method
+            Script Method
           </span>
         </div>
       </header>
@@ -142,6 +125,13 @@ const TestPage = () => {
       <footer className="border-t border-zinc-800 py-4 text-center text-sm text-zinc-600">
         Powered by <span className="text-cyan-500">SmythOS</span>
       </footer>
+
+      {/* Load Chatbot Script - Next.js optimized */}
+      <Script
+        src={`https://${AGENT_DOMAIN}/static/embodiment/chatBot/chatbot-v2.js`}
+        onLoad={initChatbot}
+        strategy="afterInteractive"
+      />
     </div>
   );
 };
