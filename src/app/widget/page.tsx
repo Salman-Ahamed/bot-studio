@@ -4,21 +4,20 @@ import Script from "next/script";
 import { useState } from "react";
 
 /**
- * Agent configuration
+ * Agent configuration for widget testing
  */
-const AGENT_ID = "cmil944nr70e8fzilkr0w632v";
+const AGENT_ID = "cmgeknzxreggfnp5r76sucxgu";
 const AGENT_DOMAIN = `${AGENT_ID}.agent.pstage.smyth.ai`;
-// const AGENT_DOMAIN = `${AGENT_ID}.localagent.stage.smyth.ai:5053`;
 
 /**
- * Test Page - Script-based Chatbot Integration
- * Uses Next.js Script component for optimized loading
+ * Widget Page - Widget Integration Testing
+ * Uses Script method for widget embedding
  */
-const TestPage = () => {
+const WidgetPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   /**
-   * Initialize chatbot after script loads
+   * Initialize chatbot widget after script loads
    */
   const initChatbot = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -30,7 +29,7 @@ const TestPage = () => {
         allowAttachments: true,
         enableDebugLogs: true,
         enableMetaMessages: true,
-        containerId: "smyth-chatbot",
+        containerId: "widget-chatbot",
       });
       setIsLoading(false);
     }
@@ -41,12 +40,12 @@ const TestPage = () => {
       {/* Header */}
       <header className="sticky top-0 z-50 flex items-center justify-between border-b border-zinc-800 bg-zinc-950/80 px-6 py-4 backdrop-blur-md">
         <div className="flex items-center gap-3">
-          <span className="text-2xl">🧪</span>
+          <span className="text-2xl">🔧</span>
           <h1 className="bg-gradient-to-r from-cyan-400 to-violet-500 bg-clip-text text-xl font-bold text-transparent">
-            Bot Studio - Test Page
+            Bot Studio - Widget
           </h1>
-          <span className="rounded-full border border-amber-500 bg-amber-500/20 px-2 py-0.5 text-xs text-amber-400">
-            Script Method
+          <span className="rounded-full border border-orange-500 bg-orange-500/20 px-2 py-0.5 text-xs text-orange-400">
+            Widget Test
           </span>
         </div>
       </header>
@@ -58,11 +57,11 @@ const TestPage = () => {
           <div className="flex h-[600px] flex-col overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/50">
             {/* Card Header */}
             <div className="flex items-center gap-3 border-b border-zinc-800 bg-zinc-900 px-4 py-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-violet-600">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-red-600">
                 <span className="text-lg">🤖</span>
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold text-white">Test Agent</h3>
+                <h3 className="font-semibold text-white">Widget Agent</h3>
                 <p className="text-xs text-zinc-500">{AGENT_ID}</p>
               </div>
               <div className="flex items-center gap-1.5 rounded-full bg-zinc-800 px-2.5 py-1">
@@ -79,7 +78,7 @@ const TestPage = () => {
               </div>
             </div>
 
-            {/* Chatbot Container - overflow hidden to contain widget */}
+            {/* Chatbot Container */}
             <div className="relative flex-1 overflow-hidden bg-zinc-950">
               {/* Loading Spinner */}
               {isLoading && (
@@ -94,7 +93,7 @@ const TestPage = () => {
                         cx="12"
                         cy="12"
                         r="10"
-                        stroke="#0ea5e9"
+                        stroke="#f97316"
                         strokeWidth="4"
                         fill="none"
                       />
@@ -110,9 +109,9 @@ const TestPage = () => {
                 </div>
               )}
 
-              {/* Chatbot Container - ChatBot.init() will render here */}
+              {/* Widget Container */}
               <div
-                id="smyth-chatbot"
+                id="widget-chatbot"
                 className="absolute inset-0 h-full w-full"
                 style={{ maxHeight: "100%", overflow: "hidden" }}
               />
@@ -126,7 +125,7 @@ const TestPage = () => {
         Powered by <span className="text-cyan-500">SmythOS</span>
       </footer>
 
-      {/* Load Chatbot Script - Next.js optimized */}
+      {/* Load Chatbot Script */}
       <Script
         src={`https://${AGENT_DOMAIN}/static/embodiment/chatBot/chatbot-v2.js`}
         onLoad={initChatbot}
@@ -136,4 +135,5 @@ const TestPage = () => {
   );
 };
 
-export default TestPage;
+export default WidgetPage;
+
