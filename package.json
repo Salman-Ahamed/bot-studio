@@ -3,14 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "dev:webpack": "next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
-    "@smythos/chatbot": "file:../../smyth-os/chatbot-embodiment-client",
     "next": "16.1.1",
     "react": "19.2.3",
     "react-dom": "19.2.3"
