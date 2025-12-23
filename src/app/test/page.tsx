@@ -8,6 +8,7 @@ import { useState } from "react";
  */
 const AGENT_ID = "cmil944nr70e8fzilkr0w632v";
 const AGENT_DOMAIN = `${AGENT_ID}.agent.pstage.smyth.ai`;
+// const AGENT_DOMAIN = `${AGENT_ID}.localagent.stage.smyth.ai:5053`;
 
 /**
  * Test Page - Script-based Chatbot Integration
@@ -20,16 +21,15 @@ const TestPage = () => {
    * Initialize chatbot after script loads
    */
   const initChatbot = () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const ChatBot = (window as any).ChatBot;
+    const ChatBot = (window as any).ChatBot; // eslint-disable-line @typescript-eslint/no-explicit-any
     if (ChatBot) {
       ChatBot.init({
         domain: AGENT_DOMAIN,
         isChatOnly: true,
-        containerId: "smythos-chatbot-container",
         allowAttachments: true,
+        enableDebugLogs: true,
         enableMetaMessages: true,
-        introMessage: "Hello, how can I assist you today?",
+        containerId: "smyth-chatbot",
       });
       setIsLoading(false);
     }
