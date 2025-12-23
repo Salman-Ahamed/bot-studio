@@ -5,27 +5,12 @@
  *
  * This page demonstrates using the SmythBot React component
  * instead of the embed script approach.
- */
-
-import dynamic from "next/dynamic";
-
-/**
- * Dynamic import SmythBot with SSR disabled
  *
- * This is required because SmythBot injects CSS into document.head
- * which doesn't exist during server-side rendering.
+ * NOTE: As of v0.0.2, CSS is lazy-injected on component mount,
+ * so "use client" is enough - no dynamic import needed!
  */
-const SmythBot = dynamic(
-  () => import("smythos-chatbot-test").then((mod) => mod.SmythBot),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="flex h-full items-center justify-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-cyan-500 border-t-transparent" />
-      </div>
-    ),
-  }
-);
+
+import { SmythBot } from "smythos-chatbot-test";
 
 /** Agent configuration */
 const AGENT_ID = "cmil944nr70e8fzilkr0w632v";
@@ -70,14 +55,11 @@ const TestPackagePage = () => {
               React component!
             </p>
             <pre className="mt-3 overflow-x-auto rounded-lg bg-zinc-900 p-3 text-xs text-zinc-300">
-              {`// Next.js requires dynamic import (SSR disabled)
-import dynamic from 'next/dynamic';
+              {`"use client";
 
-const SmythBot = dynamic(
-  () => import('smythos-chatbot-test').then(m => m.SmythBot),
-  { ssr: false }
-);
+import { SmythBot } from 'smythos-chatbot-test';
 
+// That's it! CSS auto-injects on mount. SSR safe!
 <SmythBot 
   agentId="${AGENT_ID}"
   domain="${AGENT_DOMAIN}"
