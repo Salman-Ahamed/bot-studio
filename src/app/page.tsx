@@ -1,58 +1,40 @@
 "use client";
 
-import Script from "next/script";
 import { useState } from "react";
 
 /**
  * Agent configuration
  */
-const AGENT_ID = "cmil944nr70e8fzilkr0w632v";
-const AGENT_DOMAIN = `${AGENT_ID}.agent.pstage.smyth.ai`;
-// const AGENT_DOMAIN = `${AGENT_ID}.localagent.stage.smyth.ai:5053`;
+const AGENT_ID = "cmgeknzxreggfnp5r76sucxgu";
 
 /**
- * Bot Studio Home Page
- * Uses Next.js Script component for optimized chatbot loading
+ * Generates chatbot URL from agent ID
+ * @param agentId - The unique agent identifier
+ * @returns The full chatbot URL
+ */
+function getChatbotUrl(agentId: string): string {
+  return `https://${agentId}.agent.pstage.smyth.ai/chatBot?allowAttachments=true`;
+}
+
+/**
+ * Bot Studio Home Page - Iframe-based Chatbot Integration
+ * Uses iframe URL method for embedding (CORS-safe)
  */
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
-
-  /**
-   * Initialize chatbot after script loads
-   */
-  const initChatbot = () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const ChatBot = (window as any).ChatBot;
-    if (ChatBot) {
-      ChatBot.init({
-        domain: AGENT_DOMAIN,
-        isChatOnly: true,
-        allowAttachments: true,
-        enableDebugLogs: true,
-        enableMetaMessages: true,
-        containerId: "smyth-chatbot",
-        colors: {
-          chatWindowColors: {
-            backgroundColor: "#000",
-            footerBackgroundColor: "#000",
-          },
-        },
-      });
-      setIsLoading(false);
-    }
-  };
+  const chatbotUrl = getChatbotUrl(AGENT_ID);
 
   return (
     <div className="flex min-h-screen flex-col bg-zinc-950 text-white">
       {/* Header */}
       <header className="sticky top-0 z-50 flex items-center justify-between border-b border-zinc-800 bg-zinc-950/80 px-6 py-4 backdrop-blur-md">
         <div className="flex items-center gap-3">
-          <span className="text-2xl">⚡</span>
+          <span className="text-2xl">🖼️</span>
           <h1 className="bg-gradient-to-r from-cyan-400 to-violet-500 bg-clip-text text-xl font-bold text-transparent">
-            Bot Studio
+            Bot Studio - Embed
           </h1>
-          <span className="rounded-full border border-violet-500 bg-violet-500/20 px-2 py-0.5 text-xs text-violet-400">
-            v1.0
+          <span className="rounded-full border border-cyan-500 bg-cyan-500/20 px-2 py-0.5 text-xs text-cyan-400">
+            Iframe Method
           </span>
         </div>
       </header>
@@ -68,7 +50,7 @@ const Home = () => {
                 <span className="text-lg">🤖</span>
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold text-white">SmythOS Agent</h3>
+                <h3 className="font-semibold text-white">Embed Agent</h3>
                 <p className="text-xs text-zinc-500">{AGENT_ID}</p>
               </div>
               <div className="flex items-center gap-1.5 rounded-full bg-zinc-800 px-2.5 py-1">
@@ -85,8 +67,8 @@ const Home = () => {
               </div>
             </div>
 
-            {/* Chatbot Container - overflow hidden to contain widget */}
-            <div className="relative flex-1 overflow-hidden bg-zinc-950">
+            {/* Chatbot Container */}
+            <div className="relative flex-1 overflow-hidden">
               {/* Loading Spinner */}
               {isLoading && (
                 <div className="absolute inset-0 z-10 flex items-center justify-center bg-zinc-950">
@@ -116,11 +98,12 @@ const Home = () => {
                 </div>
               )}
 
-              {/* Chatbot Container - ChatBot.init() will render here */}
-              <div
-                id="smyth-chatbot"
-                className="absolute inset-0 h-full w-full"
-                style={{ maxHeight: "100%", overflow: "hidden" }}
+              {/* Chatbot Iframe */}
+              <iframe
+                src={chatbotUrl}
+                id={`chatbot-iframe-${AGENT_ID}`}
+                className="h-full w-full border-0"
+                onLoad={() => setIsLoading(false)}
               />
             </div>
           </div>
@@ -131,13 +114,6 @@ const Home = () => {
       <footer className="border-t border-zinc-800 py-4 text-center text-sm text-zinc-600">
         Powered by <span className="text-cyan-500">SmythOS</span>
       </footer>
-
-      {/* Load Chatbot Script - Next.js optimized */}
-      <Script
-        src={`https://${AGENT_DOMAIN}/static/embodiment/chatBot/chatbot-v2.js`}
-        onLoad={initChatbot}
-        strategy="afterInteractive"
-      />
     </div>
   );
 };
