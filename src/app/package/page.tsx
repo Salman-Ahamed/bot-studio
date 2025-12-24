@@ -1,5 +1,7 @@
 "use client";
 
+import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
 /**
  * Test Page for smythos-chatbot-test npm package
  *
@@ -42,7 +44,11 @@ const AGENT_DOMAIN = `${AGENT_ID}.agent.pstage.smyth.ai`;
  */
 const TestPackagePage = () => {
   return (
-    <div className="min-h-screen">
+    <div className="flex min-h-screen flex-col bg-zinc-950 text-white">
+      {/* Header */}
+      <Header agentCount={1} mode="Package" />
+
+      {/* Main Content */}
       <SmythBot
         agentId={AGENT_ID}
         domain={AGENT_DOMAIN}
@@ -52,6 +58,9 @@ const TestPackagePage = () => {
         allowAttachments
         onReady={() => console.log("SmythBot is ready!")}
       />
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { getAgentsFromEnv } from "@/lib/agents";
+import Image from "next/image";
 import { ChatbotCard } from "./_components/card";
 
 /**
@@ -13,7 +14,7 @@ const Home = () => {
   const agents = getAgentsFromEnv();
   return (
     <div className="flex min-h-screen flex-col bg-zinc-950 text-white">
-      <Header agentCount={agents.length} />
+      <Header agentCount={agents.length} mode="Multi-Agent" />
 
       <main className="flex-1 p-6">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -24,7 +25,13 @@ const Home = () => {
 
         {agents.length === 0 && (
           <div className="flex h-[400px] flex-col items-center justify-center rounded-2xl border border-dashed border-zinc-800 bg-zinc-900/30">
-            <span className="mb-4 text-5xl opacity-50">🤖</span>
+            <Image
+              src="/logo.png"
+              alt="Bot Studio Logo"
+              width={80}
+              height={80}
+              className="mb-4 opacity-50"
+            />
             <h3 className="mb-2 text-lg font-medium text-zinc-400">
               No Agents Configured
             </h3>

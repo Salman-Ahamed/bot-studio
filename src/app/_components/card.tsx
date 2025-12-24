@@ -1,6 +1,7 @@
 "use client";
 
 import { getChatbotUrl } from "@/lib/agents";
+import Image from "next/image";
 import { useCallback, useState } from "react";
 
 interface ChatbotCardProps {
@@ -8,15 +9,21 @@ interface ChatbotCardProps {
   index: number;
 }
 
+/**
+ * ChatbotCard - Displays an individual chatbot agent in a card layout
+ * with embedded iframe for the chat interface
+ */
 export const ChatbotCard = ({ agent, index }: ChatbotCardProps) => {
   const { id, name } = agent || {};
   const [isLoading, setIsLoading] = useState(true);
   const chatbotUrl = getChatbotUrl(id);
 
+  /** Callback to handle iframe load completion */
   const handleLoad = useCallback(() => {
     setIsLoading(false);
   }, []);
 
+  // Gradient colors for card header accent (cycles through for variety)
   const gradients = [
     "from-cyan-500 to-violet-600",
     "from-emerald-500 to-teal-600",
@@ -31,9 +38,15 @@ export const ChatbotCard = ({ agent, index }: ChatbotCardProps) => {
     <div className="flex h-[500px] md:h-[600px] xl:h-[700px] flex-col overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/50 transition-all duration-300 hover:border-zinc-700 hover:shadow-xl hover:shadow-black/20">
       <div className="flex items-center gap-3 border-b border-zinc-800 bg-zinc-900 px-4 py-3">
         <div
-          className={`flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br ${gradient}`}
+          className={`flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br ${gradient} p-0.5`}
         >
-          <span className="text-base">🤖</span>
+          <Image
+            src="/logo.png"
+            alt="Bot Logo"
+            width={32}
+            height={32}
+            className="rounded-lg"
+          />
         </div>
         <div className="min-w-0 flex-1">
           <h3 className="truncate font-semibold text-white" title={name}>

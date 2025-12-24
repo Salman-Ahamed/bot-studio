@@ -1,6 +1,7 @@
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { getFirstAgentFromEnv } from "@/lib/agents";
+import Image from "next/image";
 import { WidgetChatbot } from "./_components/widget-chatbot";
 
 /**
@@ -15,7 +16,7 @@ const WidgetPage = () => {
   return (
     <div className="flex min-h-screen flex-col bg-zinc-950 text-white">
       {/* Header */}
-      <Header agentCount={agent ? 1 : 0} />
+      <Header agentCount={agent ? 1 : 0} mode="Widget" />
 
       {/* Main Content */}
       <main className="flex-1 p-6">
@@ -24,7 +25,13 @@ const WidgetPage = () => {
             <WidgetChatbot agent={agent} />
           ) : (
             <div className="flex h-[400px] flex-col items-center justify-center rounded-2xl border border-dashed border-zinc-800 bg-zinc-900/30">
-              <span className="mb-4 text-5xl opacity-50">🤖</span>
+              <Image
+                src="/logo.png"
+                alt="Bot Studio Logo"
+                width={80}
+                height={80}
+                className="mb-4 opacity-50"
+              />
               <h3 className="mb-2 text-lg font-medium text-zinc-400">
                 No Agent Configured
               </h3>

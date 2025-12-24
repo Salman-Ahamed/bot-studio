@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Script from "next/script";
 import { useState } from "react";
 import { getAgentDomain, type Agent } from "@/lib/agents";
@@ -40,8 +41,14 @@ export const WidgetChatbot = ({ agent }: WidgetChatbotProps) => {
       <div className="flex h-[600px] flex-col overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/50">
         {/* Card Header */}
         <div className="flex items-center gap-3 border-b border-zinc-800 bg-zinc-900 px-4 py-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-red-600">
-            <span className="text-lg">🤖</span>
+          <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-orange-500 to-red-600 p-0.5">
+            <Image
+              src="/logo.png"
+              alt="Bot Logo"
+              width={36}
+              height={36}
+              className="rounded-lg"
+            />
           </div>
           <div className="flex-1">
             <h3 className="font-semibold text-white">{agent.name}</h3>
