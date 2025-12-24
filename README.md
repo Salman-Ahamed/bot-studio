@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bot Studio
+
+A modern SmythOS chatbot testing and demonstration platform built with Next.js 16, React 19, TypeScript, and Tailwind CSS 4.
+
+## Features
+
+- **Multi-Agent Dashboard** - Display multiple chatbot agents in a responsive grid layout
+- **Multiple Display Modes** - Embed, Widget, and Package integration options
+- **Secure Configuration** - Agent IDs loaded server-side (not exposed to client bundle)
+- **Modern UI** - Dark theme with gradient accents and smooth animations
+- **SmythOS Integration** - Uses `smythos-chatbot-test` package for chatbot components
+
+## Display Modes
+
+| Route      | Mode        | Description                                   |
+| ---------- | ----------- | --------------------------------------------- |
+| `/`        | Multi-Agent | Grid display of all configured agents         |
+| `/embed`   | Embed       | Single agent iframe embed                     |
+| `/widget`  | Widget      | Widget-style chatbot display                  |
+| `/package` | Package     | SmythBot React component from smythos-chatbot |
+
+## Environment Variables
+
+Create a `.env.local` file in the project root:
+
+```env
+# Required: Base domain for agent endpoints
+NEXT_PUBLIC_AGENT_BASE_DOMAIN=agent.pstage.smyth.ai
+
+# Required: Comma-separated list of agents (format: id:name)
+AGENT_LIST=agent-id-1:Agent Name 1,agent-id-2:Agent Name 2
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+ or Bun
+- Package manager (bun recommended)
+
+### Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Install dependencies
+bun install
+
+# Start development server
+bun run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the dashboard.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Create production build
+bun run build
 
-## Learn More
+# Start production server
+bun run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/
+├── app/
+│   ├── _components/     # Home page components
+│   ├── embed/           # Embed mode page
+│   ├── widget/          # Widget mode page
+│   ├── package/         # Package mode page
+│   └── page.tsx         # Multi-agent dashboard
+├── components/          # Shared components (Header, Footer)
+└── lib/
+    └── agents.ts        # Agent configuration utilities
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Tech Stack
 
-## Deploy on Vercel
+- **Framework**: Next.js 16.1.1
+- **React**: 19.2.3
+- **Styling**: Tailwind CSS 4
+- **Language**: TypeScript 5
+- **Chatbot**: smythos-chatbot-test
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT © [Salman Ahamed](https://github.com/Salman-Ahamed)
