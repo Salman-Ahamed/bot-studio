@@ -7,7 +7,7 @@
         "next": "16.1.1",
         "react": "19.2.3",
         "react-dom": "19.2.3",
-        "smythos-chatbot-test": "^2.6.2",
+        "smythos-chatbot-test": "^2.6.8",
       },
       "devDependencies": {
         "@tailwindcss/postcss": "^4",
@@ -984,7 +984,7 @@
 
     "side-channel-weakmap": ["side-channel-weakmap@1.0.2", "", { "dependencies": { "call-bound": "^1.0.2", "es-errors": "^1.3.0", "get-intrinsic": "^1.2.5", "object-inspect": "^1.13.3", "side-channel-map": "^1.0.1" } }, "sha512-WPS/HvHQTYnHisLo9McqBHOJk2FkHO/tlpvldyrnem4aeQp4hai3gythswg6p01oSoTl58rcpiFAjF2br2Ak2A=="],
 
-    "smythos-chatbot-test": ["smythos-chatbot-test@2.6.2", "", { "dependencies": { "axios": "^1.13.1", "clsx": "^2.1.1", "react-icons": "^5.5.0", "react-loader-spinner": "^8.0.0", "react-markdown": "^10.1.0", "react-syntax-highlighter": "^16.1.0", "remark-gfm": "^4.0.1", "tailwind-merge": "^3.3.1" }, "peerDependencies": { "react": "^18.0.0 || ^19.0.0", "react-dom": "^18.0.0 || ^19.0.0" } }, "sha512-a4EkH8d6HjIiBqB/qarEB6Z4KbK7hZiH2vWgjC2FG6F2zVIIqvPU73HnCt0vRqdByAy8N51jElBdmTBUwABS0Q=="],
+    "smythos-chatbot-test": ["smythos-chatbot-test@2.6.8", "", { "dependencies": { "axios": "^1.13.1", "clsx": "^2.1.1", "react-icons": "^5.5.0", "react-loader-spinner": "^8.0.0", "react-markdown": "^10.1.0", "react-syntax-highlighter": "^16.1.0", "remark-gfm": "^4.0.1", "tailwind-merge": "^3.3.1" }, "peerDependencies": { "react": "^18.0.0 || ^19.0.0", "react-dom": "^18.0.0 || ^19.0.0" } }, "sha512-2YcXHI8h5GTVkxb7LiyaQyYLhXsmycd+njBCa5QVabovPrFKF1o87xPdC5qtExLdT6TZOCY10YcpbObmmefArQ=="],
 
     "source-map-js": ["source-map-js@1.2.1", "", {}, "sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA=="],
 
