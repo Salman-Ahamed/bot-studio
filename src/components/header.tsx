@@ -16,7 +16,7 @@ export const Header = ({ agentCount, mode }: TProps) => (
         className="rounded-lg"
         priority
       />
-      <h1 className="bg-gradient-to-r from-cyan-400 to-violet-500 dark:from-cyan-400 dark:to-violet-500 bg-clip-text text-xl font-bold text-transparent dark:text-slate-200">
+      <h1 className="bg-gradient-to-r from-cyan-400 to-violet-500 dark:from-cyan-400 dark:to-violet-500 bg-clip-text text-xl font-bold text-transparent">
         Bot Studio
       </h1>
       <span className="rounded-full border border-violet-500 bg-violet-500/20 px-2 py-0.5 text-xs text-violet-400">
