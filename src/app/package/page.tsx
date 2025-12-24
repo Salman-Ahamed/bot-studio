@@ -1,63 +1,38 @@
-"use client";
-
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
-/**
- * Test Page for smythos-chatbot-test npm package
- *
- * This page demonstrates using the SmythBot React component
- * instead of the embed script approach.
- */
-
-import dynamic from "next/dynamic";
-import type { ISmythBotProps } from "smythos-chatbot-test";
+import { getFirstAgentFromEnv } from "@/lib/agents";
+import { PackageChatbot } from "./_components/package-chatbot";
 
 /**
- * Dynamic import SmythBot with SSR disabled
- *
- * This is required because SmythBot injects CSS into document.head
- * which doesn't exist during server-side rendering.
- *
- * Note: We import the type separately to get proper TypeScript suggestions.
+ * Package Page - Server Component
+ * Demonstrates the SmythBot React component from smythos-chatbot-test package
+ * Agent ID is loaded from environment variables (NOT exposed to client bundle)
  */
-const SmythBot = dynamic<ISmythBotProps>(
-  () => import("smythos-chatbot-test").then((mod) => mod.SmythBot),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="flex h-full items-center justify-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-cyan-500 border-t-transparent" />
-      </div>
-    ),
-  }
-);
+const PackagePage = () => {
+  // Server-side only - get first agent from env
+  const agent = getFirstAgentFromEnv();
 
-/** Agent configuration */
-const AGENT_ID = "cmil944nr70e8fzilkr0w632v";
-const AGENT_DOMAIN = `${AGENT_ID}.agent.pstage.smyth.ai`;
-
-/**
- * Test Package Page
- *
- * Demonstrates the new React component approach for embedding SmythBot.
- * No script loading needed - just import and use!
- */
-const TestPackagePage = () => {
   return (
     <div className="flex min-h-screen flex-col bg-zinc-950 text-white">
       {/* Header */}
-      <Header agentCount={1} mode="Package" />
+      <Header agentCount={agent ? 1 : 0} mode="Package" />
 
       {/* Main Content */}
-      <SmythBot
-        agentId={AGENT_ID}
-        domain={AGENT_DOMAIN}
-        mode="widget"
-        enableDebugLogs
-        enableMetaMessages
-        allowAttachments
-        onReady={() => console.log("SmythBot is ready!")}
-      />
+      {agent ? (
+        <PackageChatbot agent={agent} />
+      ) : (
+        <main className="flex flex-1 items-center justify-center p-6">
+          <div className="flex h-[400px] w-full max-w-2xl flex-col items-center justify-center rounded-2xl border border-dashed border-zinc-800 bg-zinc-900/30">
+            <span className="mb-4 text-5xl opacity-50">🤖</span>
+            <h3 className="mb-2 text-lg font-medium text-zinc-400">
+              No Agent Configured
+            </h3>
+            <p className="text-sm text-zinc-600">
+              Set AGENT_LIST environment variable to get started
+            </p>
+          </div>
+        </main>
+      )}
 
       {/* Footer */}
       <Footer />
@@ -65,4 +40,4 @@ const TestPackagePage = () => {
   );
 };
 
-export default TestPackagePage;
+export default PackagePage;
