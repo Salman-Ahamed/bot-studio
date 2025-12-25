@@ -2,7 +2,7 @@
 
 import { getChatbotUrl } from "@/lib/agents";
 import Image from "next/image";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 interface ChatbotCardProps {
   agent: { id: string; name: string };
@@ -18,10 +18,22 @@ export const ChatbotCard = ({ agent, index }: ChatbotCardProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const chatbotUrl = getChatbotUrl(id);
 
+  /** Ref to access the iframe element for reload functionality */
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
   /** Callback to handle iframe load completion */
   const handleLoad = useCallback(() => {
     setIsLoading(false);
   }, []);
+
+  /** Callback to reload the chatbot iframe */
+  const handleReload = useCallback(() => {
+    if (iframeRef.current) {
+      setIsLoading(true);
+      // Reload iframe by reassigning the src attribute
+      iframeRef.current.src = chatbotUrl;
+    }
+  }, [chatbotUrl]);
 
   // Gradient colors for card header accent (cycles through for variety)
   const gradients = [
@@ -56,6 +68,30 @@ export const ChatbotCard = ({ agent, index }: ChatbotCardProps) => {
             {id}
           </p>
         </div>
+        {/* Reload button to refresh the chatbot iframe */}
+        <button
+          type="button"
+          onClick={handleReload}
+          disabled={isLoading}
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-zinc-800 text-zinc-400 transition-all duration-200 hover:bg-zinc-700 hover:text-cyan-400 disabled:cursor-not-allowed disabled:opacity-50"
+          title="Reload chatbot"
+          aria-label={`Reload ${name} chatbot`}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`}
+          >
+            <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" />
+            <path d="M21 3v5h-5" />
+          </svg>
+        </button>
+
         <div className="flex shrink-0 items-center gap-1.5 rounded-full bg-zinc-800 px-2 py-1">
           <span
             className={`h-2 w-2 rounded-full ${
@@ -102,6 +138,7 @@ export const ChatbotCard = ({ agent, index }: ChatbotCardProps) => {
         )}
 
         <iframe
+          ref={iframeRef}
           src={chatbotUrl}
           id={`chatbot-iframe-${id}`}
           className="h-full w-full border-0"
